@@ -1,0 +1,59 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= product ? 'Ürün Düzenle' : 'Yeni Ürün' %></title>
+<link rel="stylesheet" href="/css/style.css">
+
+<header class="admin-header">
+  <h1><%= product ? '✏️ Ürün Düzenle' : '➕ Yeni Ürün' %></h1>
+  <nav class="admin-nav"><a href="/admin">← Panele dön</a></nav>
+</header>
+
+<main class="admin">
+  <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
+
+  <form class="card form" method="post" enctype="multipart/form-data"
+        action="<%= product ? `/admin/products/${product.id}/edit` : '/admin/products/new' %>">
+    <label>Ürün Adı
+      <input type="text" name="name" required value="<%= product ? product.name : '' %>">
+    </label>
+
+    <label>Açıklama
+      <textarea name="description" rows="2"><%= product ? product.description : '' %></textarea>
+    </label>
+
+    <label>Fiyat (₺)
+      <input type="text" name="price" required inputmode="decimal"
+             value="<%= product ? product.price : '' %>" placeholder="örn. 250 veya 249,50">
+    </label>
+
+    <label>Kategori
+      <select name="category_id" required>
+        <% categories.forEach(c => { %>
+          <option value="<%= c.id %>" <%= product && product.category_id === c.id ? 'selected' : '' %>>
+            <%= c.name %>
+          </option>
+        <% }) %>
+      </select>
+    </label>
+
+    <label>Fotoğraf <small>(jpg/png/webp, en fazla 5 MB)</small>
+      <input type="file" name="image" accept="image/*">
+    </label>
+
+    <% if (product && product.image) { %>
+      <div class="current-photo">
+        <img src="/uploads/<%= product.image %>" alt="Mevcut fotoğraf">
+        <label class="checkbox">
+          <input type="checkbox" name="remove_image" value="1"> Mevcut fotoğrafı kaldır
+        </label>
+      </div>
+    <% } %>
+
+    <label class="checkbox">
+      <input type="checkbox" name="available" value="1"
+             <%= !product || product.available ? 'checked' : '' %>> Menüde mevcut
+    </label>
+
+    <button type="submit" class="btn btn-primary"><%= product ? 'Güncelle' : 'Ekle' %></button>
+  </form>
+</main>

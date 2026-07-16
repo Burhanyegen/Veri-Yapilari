@@ -1,0 +1,70 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yönetici Paneli</title>
+<link rel="stylesheet" href="/css/style.css">
+
+<header class="admin-header">
+  <h1>⚙️ Yönetici Paneli</h1>
+  <nav class="admin-nav">
+    <a href="/" target="_blank">Menüyü Gör</a>
+    <a href="/admin/categories">Kategoriler</a>
+    <a href="/admin/qr">QR Kod</a>
+    <form method="post" action="/admin/logout" class="inline-form">
+      <button type="submit" class="btn btn-ghost">Çıkış (<%= username %>)</button>
+    </form>
+  </nav>
+</header>
+
+<main class="admin">
+  <% if (msg) { %><p class="alert alert-ok"><%= msg %></p><% } %>
+  <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
+
+  <div class="toolbar">
+    <a href="/admin/products/new" class="btn btn-primary">+ Yeni Ürün</a>
+  </div>
+
+  <% categories.forEach(cat => {
+       const items = products.filter(p => p.category_id === cat.id);
+       if (items.length === 0) return; %>
+    <section class="admin-category">
+      <h2><%= cat.name %></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Ürün</th><th>Fiyat (₺)</th><th>Durum</th><th>İşlemler</th></tr>
+          </thead>
+          <tbody>
+            <% items.forEach(p => { %>
+              <tr class="<%= p.available ? '' : 'row-sold-out' %>">
+                <td>
+                  <strong><%= p.name %></strong>
+                  <% if (p.description) { %><br><small><%= p.description %></small><% } %>
+                </td>
+                <td>
+                  <form method="post" action="/admin/products/<%= p.id %>/price" class="price-form">
+                    <input type="text" name="price" value="<%= p.price %>" inputmode="decimal" size="7">
+                    <button type="submit" class="btn btn-small">Kaydet</button>
+                  </form>
+                </td>
+                <td>
+                  <form method="post" action="/admin/products/<%= p.id %>/toggle" class="inline-form">
+                    <button type="submit" class="btn btn-small <%= p.available ? 'btn-ok' : 'btn-warn' %>">
+                      <%= p.available ? 'Mevcut ✓' : 'Tükendi ✗' %>
+                    </button>
+                  </form>
+                </td>
+                <td class="actions">
+                  <a href="/admin/products/<%= p.id %>/edit" class="btn btn-small">Düzenle</a>
+                  <form method="post" action="/admin/products/<%= p.id %>/delete" class="inline-form"
+                        onsubmit="return confirm('<%= p.name %> silinsin mi?')">
+                    <button type="submit" class="btn btn-small btn-danger">Sil</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  <% }) %>
+</main>

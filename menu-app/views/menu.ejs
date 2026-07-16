@@ -1,0 +1,41 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meyhane Menüsü</title>
+<link rel="stylesheet" href="/css/style.css">
+
+<header class="menu-header">
+  <h1>🍇 Meyhane</h1>
+  <p class="tagline">Yeni Nesil Meyhane Menüsü</p>
+  <nav class="cat-nav">
+    <% categories.forEach(cat => { %>
+      <a href="#kat-<%= cat.id %>"><%= cat.name %></a>
+    <% }) %>
+  </nav>
+</header>
+
+<main class="menu">
+  <% categories.forEach(cat => { %>
+    <section class="category" id="kat-<%= cat.id %>">
+      <h2><%= cat.name %></h2>
+      <% cat.products.forEach(p => { %>
+        <article class="item <%= p.available ? '' : 'sold-out' %>">
+          <% if (p.image) { %>
+            <img class="item-photo" src="/uploads/<%= p.image %>" alt="<%= p.name %>" loading="lazy">
+          <% } %>
+          <div class="item-info">
+            <div class="item-top">
+              <h3><%= p.name %></h3>
+              <span class="price"><%= p.price.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) %> ₺</span>
+            </div>
+            <% if (p.description) { %><p class="desc"><%= p.description %></p><% } %>
+            <% if (!p.available) { %><span class="badge">Tükendi</span><% } %>
+          </div>
+        </article>
+      <% }) %>
+    </section>
+  <% }) %>
+</main>
+
+<footer class="menu-footer">
+  <p>Afiyet olsun 🥂</p>
+</footer>
