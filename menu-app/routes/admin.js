@@ -175,6 +175,28 @@ router.post('/products/:id/toggle', (req, res) => {
   res.redirect('/admin');
 });
 
+// ---- Şifre Değiştirme ----
+
+router.get('/password', (req, res) => {
+  res.render('admin/password', { error: null });
+});
+
+router.post('/password', (req, res) => {
+  const { current, password, confirm } = req.body;
+  const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.session.userId);
+  if (!user || !bcrypt.compareSync(current || '', user.password_hash)) {
+    return res.status(400).render('admin/password', { error: 'Mevcut şifre hatalı.' });
+  }
+  if (!password || password.length < 6) {
+    return res.status(400).render('admin/password', { error: 'Yeni şifre en az 6 karakter olmalı.' });
+  }
+  if (password !== confirm) {
+    return res.status(400).render('admin/password', { error: 'Yeni şifreler birbiriyle uyuşmuyor.' });
+  }
+  db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(bcrypt.hashSync(password, 10), user.id);
+  res.redirect('/admin?msg=' + encodeURIComponent('Şifreniz güncellendi'));
+});
+
 // ---- Kategoriler ----
 
 router.get('/categories', (req, res) => {

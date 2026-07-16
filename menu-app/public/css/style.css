@@ -2,6 +2,9 @@
    Marka kimliği: krem/parşömen zemin, koyu mürekkep serif yazı,
    zeytin dalı motifi, zarif harf aralıklı başlıklar. */
 
+/* Logodaki yüksek kontrastlı serif; internet yoksa Georgia'ya düşer */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap');
+
 :root {
   --paper: #f2ebd8;
   --paper-deep: #e9dfc6;
@@ -30,34 +33,27 @@ body {
 
 .menu-header {
   text-align: center;
-  padding: 2.5rem 1rem 1rem;
+  padding: 2.75rem 1rem 1rem;
 }
 
-.logo-badge {
-  width: 180px;
-  height: 180px;
-  margin: 0 auto;
-  border-radius: 50%;
-  background: var(--card);
-  border: 1px solid var(--ink);
-  box-shadow: 0 0 0 5px var(--card), 0 0 0 6px var(--ink);
+.logo {
   display: grid;
-  place-content: center;
-  gap: 0.15rem;
-  padding: 1rem;
+  justify-items: center;
+  gap: 0.1rem;
 }
-.logo-badge svg { margin: 0 auto; display: block; }
+.logo svg { display: block; margin-bottom: -0.35rem; }
 .logo-name {
-  font-size: 2rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.9rem;
   font-weight: 600;
-  letter-spacing: 0.35em;
-  margin-left: 0.35em; /* letter-spacing'in sağda bıraktığı boşluğu dengele */
+  letter-spacing: 0.12em;
+  margin-left: 0.12em; /* letter-spacing'in sağda bıraktığı boşluğu dengele */
+  line-height: 1.1;
 }
 .logo-sub {
-  font-style: italic;
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   color: var(--ink-soft);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
 }
 
 .tagline {
@@ -96,6 +92,7 @@ body {
   align-items: center;
   gap: 0.9rem;
   color: var(--ink);
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: 0.28em;
