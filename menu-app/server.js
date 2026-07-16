@@ -15,13 +15,15 @@ app.set('trust proxy', 1); // internete reverse proxy arkasında açılırsa QR 
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+// Fotoğraflar kalıcı diske (UPLOAD_DIR) taşındıysa oradan da servis et
+app.use('/uploads', express.static(process.env.UPLOAD_DIR || path.join(__dirname, 'public', 'uploads')));
 
 app.use(
   session({
     secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),
     resave: false,
     saveUninitialized: false,
-    cookie: { httpOnly: true, maxAge: 8 * 60 * 60 * 1000 }, // 8 saat
+    cookie: { httpOnly: true, secure: 'auto', maxAge: 8 * 60 * 60 * 1000 }, // 8 saat
   })
 );
 

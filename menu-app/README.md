@@ -48,16 +48,18 @@ Fiyatları `250` veya `249,50` biçiminde yazabilirsiniz; menüde otomatik `₺`
 
 Tüm menü verisi `menu-app/menu.db` dosyasındadır. Bu dosyayı kopyalamak tam yedek almak demektir. Yüklenen fotoğraflar `public/uploads/` klasöründedir — onu da yedekleyin.
 
-## İnternete Açarken (QR'ın dışarıdan çalışması için)
+## İnternete Açma (QR'ın müşteri telefonlarında çalışması için)
 
-Menüye müşterilerin kendi telefonundan erişebilmesi için uygulamanın internette bir adreste yayınlanması gerekir (ör. bir VPS, ya da Railway/Render gibi bir Node.js barındırma hizmeti). Yayınlarken:
+Adım adım yayın rehberi için **[DEPLOY.md](DEPLOY.md)** dosyasına bakın (Railway ile ~10 dakikada yayına alınır).
 
-1. `SESSION_SECRET` ortam değişkenine uzun rastgele bir değer verin (oturumlar sunucu yeniden başlasa da geçerli kalır):
-   ```bash
-   SESSION_SECRET="uzun-rastgele-bir-anahtar" PORT=3000 npm start
-   ```
-2. HTTPS kullanın (barındırma hizmetleri genelde otomatik sağlar).
-3. `/admin/qr` sayfası QR kodu her zaman o anki adrese göre üretir — site yayına girdikten sonra QR'ı oradan yazdırın.
+Desteklenen ortam değişkenleri:
+
+| Değişken | Açıklama | Varsayılan |
+|---|---|---|
+| `PORT` | Sunucu portu | `3000` |
+| `SESSION_SECRET` | Oturum imzalama anahtarı (üretimde mutlaka ayarlayın) | her açılışta rastgele |
+| `DB_PATH` | SQLite dosyasının yolu (kalıcı disk için) | `menu-app/menu.db` |
+| `UPLOAD_DIR` | Fotoğraf klasörü (kalıcı disk için) | `menu-app/public/uploads` |
 
 ## Teknolojiler
 

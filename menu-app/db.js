@@ -2,8 +2,13 @@
 const { DatabaseSync } = require('node:sqlite');
 const bcrypt = require('bcryptjs');
 const path = require('path');
+const fs = require('fs');
 
-const db = new DatabaseSync(path.join(__dirname, 'menu.db'));
+// Bulutta kalıcı diske yazabilmek için yol ortam değişkeniyle değiştirilebilir
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'menu.db');
+fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+
+const db = new DatabaseSync(DB_PATH);
 db.exec('PRAGMA journal_mode = WAL');
 db.exec('PRAGMA foreign_keys = ON');
 
