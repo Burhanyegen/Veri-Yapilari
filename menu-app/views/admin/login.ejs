@@ -1,0 +1,21 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sadem Meyhane · Yönetici Girişi</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/style.css">
+
+<main class="login-page">
+  <form class="login-card" method="post" action="/admin/login">
+    <h1>Sadem</h1>
+    <p class="login-sub">Eski Usül Meyhane · Yönetici Girişi</p>
+    <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
+    <label>Kullanıcı Adı
+      <input type="text" name="username" required autofocus autocomplete="username">
+    </label>
+    <label>Şifre
+      <input type="password" name="password" required autocomplete="current-password">
+    </label>
+    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+    <a class="back-link" href="/">← Menüye dön</a>
+  </form>
+</main>

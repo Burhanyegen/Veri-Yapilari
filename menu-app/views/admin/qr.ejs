@@ -1,0 +1,18 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR Menü Kodu</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/style.css">
+
+<header class="admin-header">
+  <h1>QR Menü Kodu</h1>
+  <nav class="admin-nav"><a href="/admin">← Panele dön</a></nav>
+</header>
+
+<main class="admin qr-page">
+  <div class="card qr-card">
+    <img src="<%= qrDataUrl %>" alt="Menü QR kodu">
+    <p>Bu kod <strong><%= menuUrl %></strong> adresini açar.</p>
+    <p><small>Yazdırıp masalara koyabilirsiniz. Sayfayı yazdırmak için Ctrl+P / ⌘+P.</small></p>
+  </div>
+</main>

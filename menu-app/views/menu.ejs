@@ -1,0 +1,70 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sadem Meyhane · Eski Usül Meyhane</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/style.css">
+
+<header class="menu-header">
+  <div class="logo">
+    <!-- Zeytin dalı ve rakı kadehi motifi (orijinal logodan) -->
+    <svg viewBox="0 0 120 80" width="122" height="81" fill="none" stroke="#2e2921" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <!-- kadeh -->
+      <ellipse cx="88" cy="18" rx="11" ry="3.2" />
+      <path d="M77 18 C 77.5 30, 78.5 40, 80 48 Q 88 52 96 48 C 97.5 40, 98.5 30, 99 18" />
+      <path d="M79.5 27 Q 88 29.5 96.5 27" />
+      <!-- ana dal -->
+      <path d="M12 72 C 32 62, 52 42, 72 21" />
+      <!-- üst yapraklar -->
+      <path d="M28 62 Q 18 56 18 45 Q 27 51 28 62 Z" />
+      <path d="M38 54 Q 30 46 33 34 Q 41 42 38 54 Z" />
+      <path d="M48 44 Q 41 35 45 23 Q 52 33 48 44 Z" />
+      <path d="M58 34 Q 52 24 57 12 Q 63 23 58 34 Z" />
+      <path d="M67 25 Q 64 14 71 5 Q 74 16 67 25 Z" />
+      <!-- alt yapraklar -->
+      <path d="M34 59 Q 43 57 48 64 Q 39 68 34 59 Z" />
+      <path d="M48 47 Q 56 44 61 50 Q 53 55 48 47 Z" />
+      <!-- zeytin salkımı -->
+      <circle cx="60" cy="42" r="3.6" />
+      <circle cx="67" cy="46" r="3.6" />
+      <circle cx="66" cy="37" r="3.6" />
+      <circle cx="73" cy="41" r="3.6" />
+    </svg>
+    <span class="logo-name">SADEM</span>
+    <span class="logo-sub">Eski usül meyhane</span>
+  </div>
+  <p class="tagline">Özlüce'nin en keyif alacağınız meyhanesi</p>
+  <nav class="cat-nav">
+    <% categories.forEach(cat => { %>
+      <a href="#kat-<%= cat.id %>"><%= cat.name %></a>
+    <% }) %>
+  </nav>
+</header>
+
+<main class="menu">
+  <% categories.forEach(cat => { %>
+    <section class="category" id="kat-<%= cat.id %>">
+      <h2><%= cat.name %></h2>
+      <% cat.products.forEach(p => { %>
+        <article class="item <%= p.available ? '' : 'sold-out' %>">
+          <% if (p.image) { %>
+            <img class="item-photo" src="/uploads/<%= p.image %>" alt="<%= p.name %>" loading="lazy">
+          <% } %>
+          <div class="item-info">
+            <div class="item-top">
+              <h3><%= p.name %></h3>
+              <span class="dots"></span>
+              <span class="price"><%= p.price.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) %> ₺</span>
+            </div>
+            <% if (p.description) { %><p class="desc"><%= p.description %></p><% } %>
+            <% if (!p.available) { %><span class="badge">Tükendi</span><% } %>
+          </div>
+        </article>
+      <% }) %>
+    </section>
+  <% }) %>
+</main>
+
+<footer class="menu-footer">
+  <p class="motto">“Sademde her şey sademce güzel.”</p>
+  <p class="address">Özlüce Mah. 415. Sokak No: 93/G · Nilüfer / Bursa</p>
+</footer>

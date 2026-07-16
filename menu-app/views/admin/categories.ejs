@@ -1,0 +1,54 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kategoriler</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/style.css">
+
+<header class="admin-header">
+  <h1>Kategoriler</h1>
+  <nav class="admin-nav"><a href="/admin">← Panele dön</a></nav>
+</header>
+
+<main class="admin">
+  <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
+
+  <form class="card form-inline" method="post" action="/admin/categories">
+    <input type="text" name="name" placeholder="Yeni kategori adı" required>
+    <button type="submit" class="btn btn-primary">Ekle</button>
+  </form>
+
+  <div class="table-wrap card">
+    <table>
+      <thead><tr><th>Sıra</th><th>Ad</th><th>Ürün Sayısı</th><th>İşlemler</th></tr></thead>
+      <tbody>
+        <% categories.forEach((c, i) => { %>
+          <tr>
+            <td class="actions">
+              <form method="post" action="/admin/categories/<%= c.id %>/move" class="inline-form">
+                <input type="hidden" name="dir" value="up">
+                <button type="submit" class="btn btn-small" <%= i === 0 ? 'disabled' : '' %>>↑</button>
+              </form>
+              <form method="post" action="/admin/categories/<%= c.id %>/move" class="inline-form">
+                <input type="hidden" name="dir" value="down">
+                <button type="submit" class="btn btn-small" <%= i === categories.length - 1 ? 'disabled' : '' %>>↓</button>
+              </form>
+            </td>
+            <td>
+              <form method="post" action="/admin/categories/<%= c.id %>/rename" class="price-form">
+                <input type="text" name="name" value="<%= c.name %>" required>
+                <button type="submit" class="btn btn-small">Kaydet</button>
+              </form>
+            </td>
+            <td><%= c.product_count %></td>
+            <td>
+              <form method="post" action="/admin/categories/<%= c.id %>/delete" class="inline-form"
+                    onsubmit="return confirm('<%= c.name %> ve içindeki <%= c.product_count %> ürün silinsin mi?')">
+                <button type="submit" class="btn btn-small btn-danger">Sil</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</main>
