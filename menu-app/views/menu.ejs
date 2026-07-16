@@ -1,11 +1,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Meyhane Menüsü</title>
+<title>Sadem Meyhane · Eski Usül Meyhane</title>
 <link rel="stylesheet" href="/css/style.css">
 
 <header class="menu-header">
-  <h1>🍇 Meyhane</h1>
-  <p class="tagline">Yeni Nesil Meyhane Menüsü</p>
+  <div class="logo-badge">
+    <!-- Zeytin dalı ve rakı kadehi motifi -->
+    <svg viewBox="0 0 72 40" width="64" height="36" fill="none" stroke="#2e2921" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+      <path d="M6 34 Q 26 10 50 6" />
+      <path d="M14 27 Q 12 20 17 16 Q 20 22 14 27 Z" />
+      <path d="M23 20 Q 19 13 24 9 Q 28 15 23 20 Z" />
+      <path d="M33 14 Q 30 7 36 4 Q 39 10 33 14 Z" />
+      <path d="M20 29 Q 26 26 30 30 Q 24 34 20 29 Z" />
+      <path d="M31 22 Q 37 19 41 23 Q 35 27 31 22 Z" />
+      <circle cx="45" cy="12" r="2.4" />
+      <path d="M55 12 L 57 28 M 53 28 L 61 28 M 55.4 16 L 66 16 L 65 34 Q 60.5 36 56 34 Z" />
+    </svg>
+    <span class="logo-name">SADEM</span>
+    <span class="logo-sub">Eski Usül Meyhane</span>
+  </div>
+  <p class="tagline">Özlüce'nin en keyif alacağınız meyhanesi</p>
   <nav class="cat-nav">
     <% categories.forEach(cat => { %>
       <a href="#kat-<%= cat.id %>"><%= cat.name %></a>
@@ -25,6 +39,7 @@
           <div class="item-info">
             <div class="item-top">
               <h3><%= p.name %></h3>
+              <span class="dots"></span>
               <span class="price"><%= p.price.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) %> ₺</span>
             </div>
             <% if (p.description) { %><p class="desc"><%= p.description %></p><% } %>
@@ -37,5 +52,6 @@
 </main>
 
 <footer class="menu-footer">
-  <p>Afiyet olsun 🥂</p>
+  <p class="motto">“Sademde her şey sademce güzel.”</p>
+  <p class="address">Özlüce Mah. 415. Sokak No: 93/G · Nilüfer / Bursa</p>
 </footer>
