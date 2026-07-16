@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sadem Meyhane · Yönetici Paneli</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- GİRİŞ -->
+<main class="login-page hidden" id="view-login">
+  <form class="login-card" id="login-form">
+    <h1>Sadem</h1>
+    <p class="login-sub">Eski Usül Meyhane · Yönetici Girişi</p>
+    <p class="alert alert-error hidden" id="login-error"></p>
+    <label>E-posta
+      <input type="email" name="email" required autocomplete="username">
+    </label>
+    <label>Şifre
+      <input type="password" name="password" required autocomplete="current-password">
+    </label>
+    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+    <a class="back-link" href="/">← Menüye dön</a>
+  </form>
+</main>
+
+<!-- PANEL -->
+<div class="hidden" id="view-panel">
+  <header class="admin-header">
+    <h1>Sadem · Yönetici Paneli</h1>
+    <nav class="admin-nav">
+      <a href="/" target="_blank">Menüyü Gör</a>
+      <a href="#" data-tab="products" class="tab-link">Ürünler</a>
+      <a href="#" data-tab="categories" class="tab-link">Kategoriler</a>
+      <a href="#" data-tab="qr" class="tab-link">QR Kod</a>
+      <a href="#" data-tab="password" class="tab-link">Şifre</a>
+      <button type="button" class="btn btn-ghost" id="logout-btn">Çıkış (<span id="who"></span>)</button>
+    </nav>
+  </header>
+
+  <main class="admin">
+    <p class="alert hidden" id="msg"></p>
+
+    <!-- ÜRÜNLER -->
+    <section id="tab-products">
+      <div class="toolbar">
+        <button type="button" class="btn btn-primary" id="new-product-btn">+ Yeni Ürün</button>
+        <button type="button" class="btn hidden" id="seed-btn">Örnek menüyü yükle</button>
+      </div>
+
+      <!-- Ürün ekle/düzenle formu -->
+      <form class="card form hidden" id="product-form">
+        <h2 id="product-form-title">Yeni Ürün</h2>
+        <input type="hidden" name="id">
+        <label>Ürün Adı
+          <input type="text" name="name" required>
+        </label>
+        <label>Açıklama
+          <textarea name="description" rows="2"></textarea>
+        </label>
+        <label>Fiyat (₺)
+          <input type="text" name="price" required inputmode="decimal" placeholder="örn. 250 veya 249,50">
+        </label>
+        <label>Kategori
+          <select name="category_id" required></select>
+        </label>
+        <label>Fotoğraf <small>(otomatik küçültülür)</small>
+          <input type="file" name="photo" accept="image/*">
+        </label>
+        <div class="current-photo hidden" id="photo-preview-wrap">
+          <img id="photo-preview" alt="Fotoğraf önizleme">
+          <label class="checkbox"><input type="checkbox" name="remove_image" value="1"> Fotoğrafı kaldır</label>
+        </div>
+        <label class="checkbox"><input type="checkbox" name="available" value="1" checked> Menüde mevcut</label>
+        <div>
+          <button type="submit" class="btn btn-primary" id="product-save-btn">Kaydet</button>
+          <button type="button" class="btn" id="product-cancel-btn">Vazgeç</button>
+        </div>
+      </form>
+
+      <div id="product-list"><p class="loading">Yükleniyor…</p></div>
+    </section>
+
+    <!-- KATEGORİLER -->
+    <section id="tab-categories" class="hidden">
+      <form class="card form-inline" id="category-add-form">
+        <input type="text" name="name" placeholder="Yeni kategori adı" required>
+        <button type="submit" class="btn btn-primary">Ekle</button>
+      </form>
+      <div class="table-wrap card" id="category-list"></div>
+    </section>
+
+    <!-- QR -->
+    <section id="tab-qr" class="hidden">
+      <div class="qr-page">
+        <div class="card qr-card">
+          <img id="qr-img" width="300" height="300" alt="Menü QR kodu">
+          <p>Bu kod <strong id="qr-url"></strong> adresini açar.</p>
+          <p><small>Yazdırıp masalara koyabilirsiniz. Yazdırmak için Ctrl+P / ⌘+P.</small></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ŞİFRE -->
+    <section id="tab-password" class="hidden">
+      <form class="card form" id="password-form">
+        <h2>Şifre Değiştir</h2>
+        <label>Mevcut Şifre
+          <input type="password" name="current" required autocomplete="current-password">
+        </label>
+        <label>Yeni Şifre <small>(en az 6 karakter)</small>
+          <input type="password" name="password" required minlength="6" autocomplete="new-password">
+        </label>
+        <label>Yeni Şifre (Tekrar)
+          <input type="password" name="confirm" required minlength="6" autocomplete="new-password">
+        </label>
+        <button type="submit" class="btn btn-primary">Şifreyi Güncelle</button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<script src="/js/firebase-config.js"></script>
+<script type="module" src="/js/admin.js"></script>
+</body>
+</html>
