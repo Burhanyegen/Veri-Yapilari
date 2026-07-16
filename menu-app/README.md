@@ -15,6 +15,8 @@ Yeni nesil meyhane için dijital menü. Müşteriler menüyü telefondan QR kod 
 
 ## Kurulum
 
+> **Gereksinim:** Node.js 22.5 veya üzeri (SQLite desteği Node'un içinde geliyor, ek derleme aracı gerekmez).
+
 ```bash
 cd menu-app
 npm install
@@ -37,7 +39,7 @@ npm start
 
 ## Teknolojiler
 
-Node.js · Express · SQLite (better-sqlite3) · EJS · express-session · bcryptjs · multer · qrcode
+Node.js · Express · SQLite (Node yerleşik `node:sqlite` modülü) · EJS · express-session · bcryptjs · multer · qrcode
 
 ## Notlar
 

@@ -1,10 +1,24 @@
-const Database = require('better-sqlite3');
+// Node'un yerleşik SQLite modülü (Node 22.5+): derleme gerektirmez, Windows'ta sorunsuz.
+const { DatabaseSync } = require('node:sqlite');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 
-const db = new Database(path.join(__dirname, 'menu.db'));
-db.pragma('journal_mode = WAL');
-db.pragma('foreign_keys = ON');
+const db = new DatabaseSync(path.join(__dirname, 'menu.db'));
+db.exec('PRAGMA journal_mode = WAL');
+db.exec('PRAGMA foreign_keys = ON');
+
+// better-sqlite3 tarzı transaction sarmalayıcı
+db.transaction = (fn) => (...args) => {
+  db.exec('BEGIN');
+  try {
+    const result = fn(...args);
+    db.exec('COMMIT');
+    return result;
+  } catch (err) {
+    db.exec('ROLLBACK');
+    throw err;
+  }
+};
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (

@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "description": "Yeni nesil meyhane için dijital menü ve yönetici paneli",
   "main": "server.js",
+  "engines": {
+    "node": ">=22.5"
+  },
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^11.3.0",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.0.1",
     "qrcode": "^1.5.4"
   }
 }
