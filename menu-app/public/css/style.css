@@ -44,11 +44,10 @@ body {
 .logo svg { display: block; margin-bottom: -0.35rem; }
 .logo-name {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2.9rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  margin-left: 0.12em; /* letter-spacing'in sağda bıraktığı boşluğu dengele */
-  line-height: 1.1;
+  font-size: 3.2rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
 }
 .logo-sub {
   font-size: 0.95rem;
